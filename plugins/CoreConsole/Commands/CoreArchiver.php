@@ -42,6 +42,7 @@ class CoreArchiver extends ConsoleCommand
         $archiver->shouldStartProfiler = (bool) $input->getOption("xhprof");
         $archiver->shouldArchiveSpecifiedSites = self::getSitesListOption($input, "force-idsites");
         $archiver->shouldSkipSpecifiedSites = self::getSitesListOption($input, "skip-idsites");
+        $archiver->shouldKeepSpecifiedSites = self::getSitesListOption($input, "keep-idsites");
         $archiver->phpCliConfigurationOptions = $input->getOption("php-cli-options");
         $archiver->concurrentRequestsPerWebsite = $input->getOption('concurrent-requests-per-website');
         $archiver->maxConcurrentArchivers = $input->getOption('concurrent-archivers');
@@ -91,6 +92,8 @@ class CoreArchiver extends ConsoleCommand
             . " the desired URLs.");
         $command->addOption('skip-idsites', null, InputOption::VALUE_OPTIONAL,
             'If specified, archiving will be skipped for these websites (in case these website ids would have been archived).');
+        $command->addOption('keep-idsites', null, InputOption::VALUE_OPTIONAL,
+            'If specified, archiving will be processed only for these websites (in case these website ids would have been archived).');
         $command->addOption('skip-all-segments', null, InputOption::VALUE_NONE,
             'If specified, all segments will be skipped during archiving.');
         $command->addOption('force-idsites', null, InputOption::VALUE_OPTIONAL,

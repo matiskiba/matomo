@@ -109,6 +109,7 @@ class CronArchive
     public $shouldArchiveSpecifiedSites = array();
 
     public $shouldSkipSpecifiedSites = [];
+    public $shouldKeepSpecifiedSites = [];
 
     /**
      * If true, xhprof will be initiated for the archiving run. Only for development/testing.
@@ -732,6 +733,9 @@ class CronArchive
             $websiteIds = array_diff($websiteIds, $this->shouldSkipSpecifiedSites);
         }
 
+        if (!empty($this->shouldKeepSpecifiedSites)) {
+            $websiteIds = array_intersect($websiteIds, $this->shouldKeepSpecifiedSites);
+        }
         /**
          * Triggered by the **core:archive** console command so plugins can modify the priority of
          * websites that the archiving process will be launched for.
